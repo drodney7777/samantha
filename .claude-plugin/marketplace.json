@@ -1,0 +1,15 @@
+{
+  "name": "samantha-skills",
+  "owner": {
+    "name": "Gonçalo Neves",
+    "url": "https://github.com/goncaloneves/samantha"
+  },
+  "plugins": [
+    {
+      "name": "samantha",
+      "source": "./",
+      "description": "Agent skills for the Samantha voice assistant MCP server",
+      "version": "1.0.0"
+    }
+  ]
+}
