@@ -1,5 +1,5 @@
 ---
-name: samantha
+name: voice
 description: Control the Samantha voice assistant MCP server — start/stop listening, speak responses via TTS, and check status. Use when the user mentions voice mode, wake word, TTS, or when a message begins with [🎙️ Voice - samantha_speak].
 ---
 

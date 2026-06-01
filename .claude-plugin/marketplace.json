@@ -9,7 +9,7 @@
       "name": "samantha",
       "source": "./",
       "description": "Agent skills for the Samantha voice assistant MCP server",
-      "version": "1.0.0"
+      "version": "7.6.0"
     }
   ]
 }

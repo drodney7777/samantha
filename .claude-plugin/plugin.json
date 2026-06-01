@@ -1,6 +1,6 @@
 {
   "name": "samantha",
-  "version": "1.0.0",
+  "version": "7.6.0",
   "description": "Voice assistant MCP server with wake word detection and TTS. Use when working with Samantha voice tools (samantha_start, samantha_stop, samantha_speak, samantha_status).",
   "author": {
     "name": "Gonçalo Neves",
