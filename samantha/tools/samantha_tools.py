@@ -14,7 +14,10 @@ from samantha.config import (
     CONVERSATION_LOG,
     VOICE_MESSAGE_PREFIX,
     get_wake_words,
+    get_profile_name,
 )
+from samantha.config.profiles import PROFILES
+from samantha.config.constants import CONFIG_FILE
 import samantha.audio.playback as playback
 from samantha.injection.detection import kill_orphaned_processes, is_samantha_running_elsewhere, get_running_ide, find_terminal_with_ai
 from samantha.services.health import ensure_kokoro_running, ensure_whisper_running
@@ -206,6 +209,48 @@ async def samantha_status() -> str:
     active = SAMANTHA_ACTIVE_FILE.exists()
     return json.dumps({
         "active": active,
+        "profile": get_profile_name(),
         "wake_words": get_wake_words()[:5],
         "log_file": str(CONVERSATION_LOG)
     })
+
+
+@mcp.tool()
+async def samantha_set_profile(profile: str) -> str:
+    """Switch the active voice assistant profile.
+
+    Available profiles: samantha, jarvis, alfred
+
+    Switching takes effect immediately for new voice interactions.
+    If voice mode is running it will continue with the new profile's
+    wake words and persona on the next activation cycle.
+
+    Args:
+        profile: Profile name — one of 'samantha', 'jarvis', 'alfred'
+
+    Returns:
+        Confirmation message with the new profile's details
+    """
+    profile = profile.strip().lower()
+    if profile not in PROFILES:
+        available = ", ".join(PROFILES.keys())
+        return f"❌ Unknown profile '{profile}'. Available: {available}"
+
+    config: dict = {}
+    if CONFIG_FILE.exists():
+        try:
+            config = json.loads(CONFIG_FILE.read_text())
+        except Exception:
+            config = {}
+
+    config["profile"] = profile
+    SAMANTHA_DIR.mkdir(parents=True, exist_ok=True)
+    CONFIG_FILE.write_text(json.dumps(config, indent=2))
+
+    p = PROFILES[profile]
+    wake = p["wake_words"][1] if len(p["wake_words"]) > 1 else p["wake_words"][0]
+    return (
+        f"✅ Profile switched to '{profile}'. "
+        f"Say \"{wake}\" to activate. "
+        f"Voice: {p['voice']}."
+    )
