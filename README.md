@@ -376,6 +376,16 @@ OpenCode auto-discovers all `SKILL.md` files under `~/.opencode/skills/`. Restar
 
 **Codex CLI** — copy the `skills/` directory to `~/.codex/skills/`.
 
+**Universal path (any agent)** — `.agents/skills/` is scanned natively by Codex CLI, OpenCode, and Claude Code (via `--add-dir`). Clone into your project root or home directory:
+
+```bash
+# Project-level (any agent that scans .agents/)
+git clone https://github.com/goncaloneves/samantha.git .agents/skills/samantha
+
+# Global (any agent that scans ~/.agents/)
+git clone https://github.com/goncaloneves/samantha.git ~/.agents/skills/samantha
+```
+
 ## 📄 License
 
 MIT
