@@ -132,4 +132,4 @@ Add to your MCP client config (e.g. Claude Desktop `claude_desktop_config.json`)
 
 - [Samantha GitHub](https://github.com/goncaloneves/samantha)
 - [Kokoro TTS](https://github.com/remsky/Kokoro-FastAPI)
-- [Whisper STT](https://github.com/fedirz/faster-whisper-server)
+- [Whisper STT](https://github.com/ggerganov/whisper.cpp)

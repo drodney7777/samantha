@@ -647,7 +647,10 @@ def activate_terminal_with_ai() -> bool:
                     for line in result.stdout.strip().split('\n'):
                         for title in titles:
                             if title in line.lower():
-                                window_id = line.split()[0]
+                                parts = line.split()
+                                if not parts:
+                                    continue
+                                window_id = parts[0]
                                 subprocess.run(["wmctrl", "-i", "-a", window_id], timeout=5)
                                 logger.debug("Found AI window via wmctrl: %s", window_id)
                                 return True

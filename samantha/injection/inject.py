@@ -37,7 +37,7 @@ def simulate_paste_and_enter() -> bool:
             end tell
             """
             subprocess.run(
-                ["osascript", "-e", applescript], check=True, capture_output=True
+                ["osascript", "-e", applescript], check=True, capture_output=True, timeout=5
             )
             return True
         elif PLATFORM == "Linux":
