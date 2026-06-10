@@ -30,7 +30,7 @@ def copy_to_clipboard(text: str) -> bool:
                 logger.error("No clipboard tool found (xclip, xsel, or wl-copy)")
                 return False
         elif PLATFORM == "Windows":
-            subprocess.run(["clip.exe"], input=text.encode(), check=True, shell=True)
+            subprocess.run(["clip.exe"], input=text.encode(), check=True)
             return True
         else:
             logger.error("Unsupported platform: %s", PLATFORM)

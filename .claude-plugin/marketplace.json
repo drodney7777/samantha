@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "samantha-skills",
+  "owner": {
+    "name": "Gonçalo Neves",
+    "url": "https://github.com/goncaloneves/samantha"
+  },
+  "plugins": [
+    {
+      "name": "samantha",
+      "source": "./",
+      "description": "Agent skills for the Samantha voice assistant MCP server",
+      "version": "7.6.0"
+    }
+  ]
+}

@@ -460,6 +460,48 @@ def download_model(model):
     download_whisper_model(model)
 
 
+@cli.command()
+@click.option('--port', default=7780, show_default=True, help='Port to serve the dashboard on')
+def dashboard(port):
+    """Start the Samantha web control dashboard.
+
+    Opens a browser control panel at http://localhost:PORT with
+    toggles for voice on/off and profile switching (Samantha / Jarvis / Alfred).
+
+    Add the URL to an Obsidian note to open it with one click.
+    """
+    import asyncio
+    import os
+    os.environ["SAMANTHA_DASHBOARD_PORT"] = str(port)
+
+    try:
+        from aiohttp import web as _web  # noqa: F401
+    except ImportError:
+        print_error("aiohttp is required. Run: pip install aiohttp")
+        sys.exit(1)
+
+    from samantha.dashboard import run_dashboard
+
+    print(f"\n  Samantha control panel → http://localhost:{port}\n")
+    print("  Add this URL to your Obsidian vault note to open with one click.")
+    print("  Press Ctrl+C to stop.\n")
+
+    async def _run():
+        runner = await run_dashboard()
+        try:
+            while True:
+                await asyncio.sleep(3600)
+        except asyncio.CancelledError:
+            pass
+        finally:
+            await runner.cleanup()
+
+    try:
+        asyncio.run(_run())
+    except KeyboardInterrupt:
+        print("\n  Dashboard stopped.")
+
+
 def main():
     cli()
 

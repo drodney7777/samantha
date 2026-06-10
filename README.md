@@ -337,6 +337,55 @@ For developers integrating Samantha:
 
 For IDEs, Samantha sends `Cmd+Escape` (macOS) or `Ctrl+Escape` (Linux/Windows) to focus the AI extension input field before pasting. For desktop apps like Claude Desktop, Samantha activates the window directly (Electron apps retain chat input focus on activation).
 
+## 🎯 Agent Skills
+
+Samantha ships as an [Agent Skills](https://agentskills.io)-compatible plugin. Install once and the `/samantha:voice` skill is available in Claude Code, Codex CLI, OpenCode, and any other skills-compatible agent.
+
+### Marketplace (Claude Code)
+
+```
+/plugin marketplace add goncaloneves/samantha
+/plugin install samantha@samantha-skills
+```
+
+### npx skills
+
+```bash
+# HTTPS
+npx skills add https://github.com/goncaloneves/samantha
+
+# SSH
+npx skills add git@github.com:goncaloneves/samantha.git
+```
+
+### Manual install
+
+**Claude Code** — drop the repo into your project's `.claude/` folder or system-wide at `~/.claude/`:
+
+```bash
+git clone https://github.com/goncaloneves/samantha.git ~/.claude/plugins/samantha
+```
+
+**OpenCode** — clone the full repo into `~/.opencode/skills/`:
+
+```bash
+git clone https://github.com/goncaloneves/samantha.git ~/.opencode/skills/samantha
+```
+
+OpenCode auto-discovers all `SKILL.md` files under `~/.opencode/skills/`. Restart OpenCode after install. Do not copy only the inner `skills/` folder — the full repo layout is required.
+
+**Codex CLI** — copy the `skills/` directory to `~/.codex/skills/`.
+
+**Universal path (any agent)** — `.agents/skills/` is scanned natively by Codex CLI, OpenCode, and Claude Code (via `--add-dir`). Clone into your project root or home directory:
+
+```bash
+# Project-level (any agent that scans .agents/)
+git clone https://github.com/goncaloneves/samantha.git .agents/skills/samantha
+
+# Global (any agent that scans ~/.agents/)
+git clone https://github.com/goncaloneves/samantha.git ~/.agents/skills/samantha
+```
+
 ## 📄 License
 
 MIT
